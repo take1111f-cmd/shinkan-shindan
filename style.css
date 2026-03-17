@@ -144,4 +144,21 @@ h2 {
     color: white;
     width: 90%;
     box-shadow: 0 4px 10px rgba(220, 39, 67, 0.3);
+
+/* 解説文のスタイル（一番下に追加してください） */
+.desc-box {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+    width: 90%;
+    text-align: left; /* 左揃えにして読みやすくする */
+}
+.result-desc {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+    margin: 0;
+    white-space: pre-wrap; /* JavaScriptの改行をそのまま表示する */
+}
 }

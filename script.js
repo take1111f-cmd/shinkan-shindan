@@ -61,7 +61,7 @@ function showResult() {
     let resultDesc = ""; // ←追加：解説文用の変数
 
     // 12点満点で分岐
-    if (totalScore = 12) {
+    if (totalScore === 12) {
         resultText = "適性度100000％\n【アルプラの奇跡】";
         imageSrc = "kiseki.png"; // 画像ファイル名
         resultDesc = `あなたは10年に一人の、奇跡ともいえる逸材です。アルプラに入るために生まれてきたといっても過言ではないでしょう。

@@ -1,9 +1,12 @@
-/* 全体のスタイル */
+/* =========================================
+   全体の共通スタイル
+   ========================================= */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-    background-color: #fff0f5; /* 可愛い薄ピンクの背景 */
+    /* ポップで可愛い薄ピンクの背景 */
+    background-color: #fff0f5;
     color: #333;
     display: flex;
     justify-content: center;
@@ -11,18 +14,19 @@ body {
     min-height: 100vh;
 }
 
-/* 中央の白い箱 */
+/* 中央の白いコンテナ */
 .container {
     background-color: white;
-    width: 90%;
-    max-width: 400px;
+    width: 92%;
+    max-width: 420px;
     border-radius: 20px;
     padding: 30px 20px;
-    box-shadow: 0 10px 25px rgba(255, 182, 193, 0.5); /* ピンクっぽい影 */
+    /* ピンクベースのポップな影 */
+    box-shadow: 0 10px 25px rgba(255, 182, 193, 0.6);
     text-align: center;
 }
 
-/* 画面の切り替え設定 */
+/* 画面切り替え用のアニメーション */
 .screen {
     display: none;
     animation: fadeIn 0.5s ease;
@@ -36,14 +40,16 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* 文字のスタイル */
+/* =========================================
+   文字のスタイル
+   ========================================= */
 h1 {
     color: #ff6b81;
-    font-size: 24px;
+    font-size: 26px;
     margin-bottom: 20px;
 }
 h2 {
-    font-size: 20px;
+    font-size: 22px;
     color: #ff4757;
 }
 .q-number {
@@ -53,14 +59,104 @@ h2 {
     margin-bottom: 10px;
 }
 .q-text {
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 30px;
+    font-size: 19px;
+    line-height: 1.6;
+    margin-bottom: 40px;
     color: #2f3542;
     min-height: 3em;
 }
 
-/* ボタンのスタイル */
+/* =========================================
+   ★ここからがMBTI診断風UIの再現コード★
+   ========================================= */
+
+/* コンテナ全体の設定 */
+.mbti-container {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* 7つの円を横一列に、綺麗に配置するためのFlexbox */
+.mbti-circles {
+    display: flex;
+    justify-content: space-between; /* 均等間隔 */
+    align-items: center;        /* 上下中央揃え */
+    margin-bottom: 15px;
+    padding: 0 10px;            /* 両端に少し余白 */
+}
+
+/* 共通の円形ボタンスタイル */
+.mbti-circle {
+    border-radius: 50%;         /* 完全に円形にする */
+    background-color: transparent; /* 初期は白抜き */
+    cursor: pointer;
+    transition: all 0.2s ease;  /* アニメーションを滑らかに */
+    padding: 0;
+    margin: 0;
+    /* スマホでタップした時の青い枠線を消す */
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* タップ（ホバー）した時のアニメーション：少し縮小 */
+.mbti-circle:active {
+    transform: scale(0.85);
+}
+
+
+/* ---------------------------------
+   色とサイズの設定（画像通りに再現）
+   --------------------------------- */
+
+/* --- 緑系（そう思う）：#33a474 --- */
+/* サイズ：外側が大きく、内側が小さい */
+.mbti-circle.agree-3 { width: 45px; height: 45px; border: 3px solid #33a474; }
+.mbti-circle.agree-2 { width: 35px; height: 35px; border: 3px solid #33a474; }
+.mbti-circle.agree-1 { width: 28px; height: 28px; border: 3px solid #33a474; }
+
+/* タップ（ホバー）時に色を塗りつぶす */
+.mbti-circle.agree-3:hover, .mbti-circle.agree-3:active { background-color: #33a474; }
+.mbti-circle.agree-2:hover, .mbti-circle.agree-2:active { background-color: #33a474; }
+.mbti-circle.agree-1:hover, .mbti-circle.agree-1:active { background-color: #33a474; }
+
+
+/* --- グレー（中立）：#9aa3ab --- */
+/* サイズ：最も小さい */
+.mbti-circle.neutral { width: 22px; height: 22px; border: 3px solid #9aa3ab; }
+
+/* タップ（ホバー）時に色を塗りつぶす */
+.mbti-circle.neutral:hover, .mbti-circle.neutral:active { background-color: #9aa3ab; }
+
+
+/* --- 紫系（そう思わない）：#88619a --- */
+/* サイズ：内側が小さく、外側が大きい */
+.mbti-circle.disagree-1 { width: 28px; height: 28px; border: 3px solid #88619a; }
+.mbti-circle.disagree-2 { width: 35px; height: 35px; border: 3px solid #88619a; }
+.mbti-circle.disagree-3 { width: 45px; height: 45px; border: 3px solid #88619a; }
+
+/* タップ（ホバー）時に色を塗りつぶす */
+.mbti-circle.disagree-3:hover, .mbti-circle.disagree-3:active { background-color: #88619a; }
+.mbti-circle.disagree-2:hover, .mbti-circle.disagree-2:active { background-color: #88619a; }
+.mbti-circle.disagree-1:hover, .mbti-circle.disagree-1:active { background-color: #88619a; }
+
+
+/* --- テキストラベル（そう思う・そう思わない） --- */
+.mbti-labels {
+    display: flex;
+    justify-content: space-between; /* 両端に配置 */
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 5px;
+}
+/* ラベルの色設定 */
+.agree-text { color: #33a474; }
+.disagree-text { color: #88619a; }
+
+
+/* =========================================
+   ボタンと結果画面の共通スタイル
+   ========================================= */
 .btn {
     display: inline-block;
     width: 80%;
@@ -84,14 +180,6 @@ h2 {
     color: white;
     box-shadow: 0 4px 10px rgba(255, 107, 129, 0.4);
 }
-.yes-btn {
-    background-color: #ff8a9c;
-    color: white;
-}
-.no-btn {
-    background-color: #7bed9f;
-    color: #2f3542;
-}
 
 /* 結果画面のスタイル */
 .result-box {
@@ -105,21 +193,32 @@ h2 {
     align-items: center;
 }
 .result-title {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     color: #ff4757;
     margin: 0;
-    margin-bottom: 15px; /* 画像との間に余白を作る */
+    margin-bottom: 15px;
     line-height: 1.4;
-    white-space: pre-wrap; /* 改行を反映させる */
+    white-space: pre-wrap;
 }
-/* 結果イラストのスタイル */
 .result-img {
     max-width: 100%;
-    width: 200px; /* スマホで見やすいサイズ */
+    width: 220px;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+.result-desc {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.7;
+    text-align: left;
+    white-space: pre-wrap;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    width: 90%;
 }
 
 .share-text {
@@ -131,11 +230,12 @@ h2 {
 /* インスタへの誘導エリア */
 .cta-area {
     background-color: #f1f2f6;
-    padding: 15px;
+    padding: 20px;
     border-radius: 15px;
+    margin-top: 20px;
 }
 .cta-area p {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     margin-top: 0;
 }
@@ -144,84 +244,15 @@ h2 {
     color: white;
     width: 90%;
     box-shadow: 0 4px 10px rgba(220, 39, 67, 0.3);
-
-/* 解説文のスタイル（一番下に追加してください） */
-.desc-box {
-    background-color: #ffffff;
-    padding: 15px;
-    margin-top: 15px;
-    border-radius: 10px;
-    width: 90%;
-    text-align: left; /* 左揃えにして読みやすくする */
-}
-.result-desc {
-    font-size: 14px;
-    color: #444;
-    line-height: 1.6;
-    margin: 0;
-    white-space: pre-wrap; /* JavaScriptの改行をそのまま表示する */
-}
-}
-/* MBTI風の7段階ボタンスタイル */
-.mbti-container {
-    margin-top: 30px;
-    width: 100%;
-}
-.mbti-circles {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 0 5px;
-}
-.mbti-circle {
-    border-radius: 50%;
-    background-color: transparent;
-    cursor: pointer;
-    transition: all 0.2s;
-    padding: 0;
-    /* タップ時の青い枠線を消す */
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-}
-.mbti-circle:active {
-    transform: scale(0.8);
 }
 
-/* 緑系（そう思う） */
-.mbti-circle.agree-3 { width: 45px; height: 45px; border: 3px solid #33a474; }
-.mbti-circle.agree-2 { width: 35px; height: 35px; border: 3px solid #33a474; }
-.mbti-circle.agree-1 { width: 28px; height: 28px; border: 3px solid #33a474; }
-.mbti-circle.agree-3:hover, .mbti-circle.agree-3:active { background-color: #33a474; }
-.mbti-circle.agree-2:hover, .mbti-circle.agree-2:active { background-color: #33a474; }
-.mbti-circle.agree-1:hover, .mbti-circle.agree-1:active { background-color: #33a474; }
-
-/* グレー（中立） */
-.mbti-circle.neutral { width: 22px; height: 22px; border: 3px solid #9aa3ab; }
-.mbti-circle.neutral:hover, .mbti-circle.neutral:active { background-color: #9aa3ab; }
-
-/* 紫系（そう思わない） */
-.mbti-circle.disagree-1 { width: 28px; height: 28px; border: 3px solid #88619a; }
-.mbti-circle.disagree-2 { width: 35px; height: 35px; border: 3px solid #88619a; }
-.mbti-circle.disagree-3 { width: 45px; height: 45px; border: 3px solid #88619a; }
-.mbti-circle.disagree-3:hover, .mbti-circle.disagree-3:active { background-color: #88619a; }
-.mbti-circle.disagree-2:hover, .mbti-circle.disagree-2:active { background-color: #88619a; }
-.mbti-circle.disagree-1:hover, .mbti-circle.disagree-1:active { background-color: #88619a; }
-
-/* テキストラベル */
-.mbti-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    font-weight: bold;
-}
-.agree-text { color: #33a474; }
-.disagree-text { color: #88619a; }
-
-/* スマホ用の微調整 */
+/* =========================================
+   スマホ用の小さな微調整
+   ========================================= */
 @media (max-width: 380px) {
     .mbti-circle.agree-3, .mbti-circle.disagree-3 { width: 40px; height: 40px; }
     .mbti-circle.agree-2, .mbti-circle.disagree-2 { width: 32px; height: 32px; }
     .mbti-circle.agree-1, .mbti-circle.disagree-1 { width: 26px; height: 26px; }
     .mbti-circle.neutral { width: 20px; height: 20px; }
+    .mbti-labels { font-size: 14px; }
 }

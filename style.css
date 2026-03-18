@@ -36,7 +36,6 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* 文字のスタイル */
 h1 { color: #ff6b81; font-size: 26px; margin-bottom: 20px; }
 h2 { font-size: 22px; color: #ff4757; }
 .q-number { color: #ff6b81; font-weight: bold; font-size: 18px; margin-bottom: 10px; }
@@ -85,7 +84,7 @@ h2 { font-size: 22px; color: #ff4757; }
     transition: opacity 0.2s ease;
 }
 
-/* 色とサイズの設定（枠線のみ） */
+/* 色とサイズの設定 */
 .mbti-circle.agree-3 { width: 45px; height: 45px; border: 3px solid #33a474; }
 .mbti-circle.agree-2 { width: 35px; height: 35px; border: 3px solid #33a474; }
 .mbti-circle.agree-1 { width: 28px; height: 28px; border: 3px solid #33a474; }
@@ -117,7 +116,6 @@ h2 { font-size: 22px; color: #ff4757; }
     background-color: #88619a; 
 }
 
-/* テキストラベル */
 .mbti-labels {
     display: flex;
     justify-content: space-between;
@@ -152,6 +150,21 @@ h2 { font-size: 22px; color: #ff4757; }
     background-color: #ff6b81;
     color: white;
     box-shadow: 0 4px 10px rgba(255, 107, 129, 0.4);
+}
+
+/* 次へ・結果を見るボタン */
+.next-btn {
+    background-color: #2ed573;
+    color: white;
+    box-shadow: 0 4px 10px rgba(46, 213, 115, 0.4);
+    margin-top: 15px;
+}
+.next-btn:disabled {
+    background-color: #dfe4ea;
+    color: #a4b0be;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .result-box {
@@ -221,30 +234,10 @@ h2 { font-size: 22px; color: #ff4757; }
     box-shadow: 0 4px 10px rgba(220, 39, 67, 0.3);
 }
 
-/* スマホ用の微調整 */
 @media (max-width: 380px) {
     .mbti-circle.agree-3, .mbti-circle.disagree-3 { width: 40px; height: 40px; }
     .mbti-circle.agree-2, .mbti-circle.disagree-2 { width: 32px; height: 32px; }
     .mbti-circle.agree-1, .mbti-circle.disagree-1 { width: 26px; height: 26px; }
     .mbti-circle.neutral { width: 20px; height: 20px; }
     .mbti-labels { font-size: 14px; }
-}
-/* =========================================
-   次へ・結果を見るボタンのスタイル
-   ========================================= */
-.next-btn {
-    background-color: #2ed573; /* 爽やかなグリーン */
-    color: white;
-    box-shadow: 0 4px 10px rgba(46, 213, 115, 0.4);
-    margin-top: 15px;
-    transition: all 0.3s ease;
-}
-
-/* まだ選択していない時のグレーアウト状態 */
-.next-btn:disabled {
-    background-color: #dfe4ea;
-    color: #a4b0be;
-    box-shadow: none;
-    cursor: not-allowed;
-    transform: none; /* 押しても凹まない */
 }

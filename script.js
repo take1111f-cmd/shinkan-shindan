@@ -9,7 +9,7 @@ const questions = [
 
 let currentQuestionIndex = 0;
 let totalScore = 0;
-let currentMultiplier = null; // ★追加：選んだボタンの倍率を一時保存する変数
+let currentMultiplier = null;
 
 function startQuiz() {
     document.getElementById('start-screen').classList.remove('active');
@@ -25,15 +25,15 @@ function showQuestion() {
     document.getElementById('question-number').innerText = `Q${currentQuestionIndex + 1} / 5`;
     document.getElementById('question-text').innerText = q.text;
 
-    // 次の質問が表示される際、すべての円の選択状態をリセット
+    // ボタンの選択状態をリセット
     const allButtons = document.querySelectorAll('.mbti-circle');
     allButtons.forEach(button => button.classList.remove('selected'));
 
-    // ★追加：次へボタンを最初は「押せない状態」に戻す
+    // 次へボタンを「押せない状態」に戻す
     const nextBtn = document.getElementById('next-btn');
     nextBtn.disabled = true;
 
-    // ★追加：最後の質問ならボタンの文字を「結果を見る」に変える
+    // 最後の質問ならボタンの文字を変える
     if (currentQuestionIndex === questions.length - 1) {
         nextBtn.innerText = "結果を見る 👀";
     } else {
@@ -43,35 +43,31 @@ function showQuestion() {
 
 // 円のボタンが押された時の処理
 function answer(multiplier, event) {
-    // 点数を一時保存（まだ確定しない）
     currentMultiplier = multiplier;
 
-    // クリックされたボタンに色を塗ってチェックマークを表示
     const clickedButton = event.currentTarget;
     const allButtons = document.querySelectorAll('.mbti-circle');
     allButtons.forEach(button => button.classList.remove('selected'));
+    
     clickedButton.classList.add('selected');
 
-    // ★追加：円が選ばれたので「次へ」ボタンを押せるようにする
+    // 選ばれたら「次へ」ボタンを押せるようにする
     document.getElementById('next-btn').disabled = false;
 }
 
-// ★追加：「次へ（または結果を見る）」ボタンが押された時の処理
+// 次へ（または結果を見る）ボタンが押された時の処理
 function nextQuestion() {
-    // ここで初めてスコアを確定して足す
     totalScore += questions[currentQuestionIndex].point * currentMultiplier;
     
     currentQuestionIndex++;
 
     if (currentQuestionIndex < questions.length) {
-        // 次の質問へ（フワッと切り替え）
         document.getElementById('question-screen').classList.remove('active');
         setTimeout(() => {
             document.getElementById('question-screen').classList.add('active');
             showQuestion();
         }, 300);
     } else {
-        // 全問終了したら結果画面へ
         document.getElementById('question-screen').classList.remove('active');
         setTimeout(() => {
             document.getElementById('result-screen').classList.add('active');
@@ -80,22 +76,14 @@ function nextQuestion() {
     }
 }
 
-// =========================================
-// この下にある function showResult() { ... } はそのまま残してください！
-// =========================================
-
+// 結果を表示する処理
 function showResult() {
-    document.getElementById('question-screen').classList.remove('active');
-    document.getElementById('result-screen').classList.add('active');
-
-    // 小数点を四捨五入して整数にする
     let finalScore = Math.round(totalScore);
 
     let resultText = "";
     let imageSrc = "";
     let resultDesc = "";
 
-    // 11点満点で分岐
     if (finalScore === 11) {
         resultText = "適性度100000％\n【アルプラの奇跡】";
         imageSrc = "kiseki.png";
@@ -149,7 +137,7 @@ BBQ、ミスド、マック大食い、花火`;
 しゃぶしゃぶ、タコパ、ギョーザ`;
     } else {
         resultText = "適性度1％\n【大坂なおみ】";
-        imageSrc = "osaka.png";
+        imageSrc = "osaka.jpeg";
         resultDesc = `圧倒的なテニスへの情熱！ウィンブルドンを目指すあなたの熱気に、アルプラの部員たちは震え上がっています。残念ながら、うちのサークルの部員は誰一人として、あなたのその強烈なサーブを受け止めることができません。体育会系テニス部への入部を強くお勧めします！でも、息抜きに寿司が食べたくなったら遊びに来てくださいね。
 
 【あなたのラッキー新歓】

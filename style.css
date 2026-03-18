@@ -32,10 +32,10 @@ body {
 h1 { color: #ff6b81; font-size: 26px; margin-bottom: 20px; }
 h2 { font-size: 22px; color: #ff4757; }
 .q-number { color: #ff6b81; font-weight: bold; font-size: 18px; margin-bottom: 10px; }
-.q-text { font-size: 19px; line-height: 1.6; margin-bottom: 40px; color: #2f3542; min-height: 3em; }
+.q-text { font-size: 19px; line-height: 1.6; margin-bottom: 30px; color: #2f3542; min-height: 3em; }
 
 /* MBTI UI */
-.mbti-container { margin-top: 30px; margin-bottom: 20px; width: 100%; }
+.mbti-container { margin-top: 30px; margin-bottom: 10px; width: 100%; }
 .mbti-circles {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 15px; padding: 0 10px;
@@ -50,29 +50,47 @@ h2 { font-size: 22px; color: #ff4757; }
 .mbti-circle.agree-3 { width: 45px; height: 45px; border: 3px solid #33a474; }
 .mbti-circle.agree-2 { width: 35px; height: 35px; border: 3px solid #33a474; }
 .mbti-circle.agree-1 { width: 28px; height: 28px; border: 3px solid #33a474; }
-.mbti-circle.agree-3:hover, .mbti-circle.agree-3:active { background-color: #33a474; }
-.mbti-circle.agree-2:hover, .mbti-circle.agree-2:active { background-color: #33a474; }
-.mbti-circle.agree-1:hover, .mbti-circle.agree-1:active { background-color: #33a474; }
+/* ホバー時と、選択された時(.selected)に塗りつぶす */
+.mbti-circle.agree-3:hover, .mbti-circle.agree-3.selected { background-color: #33a474; }
+.mbti-circle.agree-2:hover, .mbti-circle.agree-2.selected { background-color: #33a474; }
+.mbti-circle.agree-1:hover, .mbti-circle.agree-1.selected { background-color: #33a474; }
 
 .mbti-circle.neutral { width: 22px; height: 22px; border: 3px solid #9aa3ab; }
-.mbti-circle.neutral:hover, .mbti-circle.neutral:active { background-color: #9aa3ab; }
+.mbti-circle.neutral:hover, .mbti-circle.neutral.selected { background-color: #9aa3ab; }
 
 .mbti-circle.disagree-1 { width: 28px; height: 28px; border: 3px solid #88619a; }
 .mbti-circle.disagree-2 { width: 35px; height: 35px; border: 3px solid #88619a; }
 .mbti-circle.disagree-3 { width: 45px; height: 45px; border: 3px solid #88619a; }
-.mbti-circle.disagree-3:hover, .mbti-circle.disagree-3:active { background-color: #88619a; }
-.mbti-circle.disagree-2:hover, .mbti-circle.disagree-2:active { background-color: #88619a; }
-.mbti-circle.disagree-1:hover, .mbti-circle.disagree-1:active { background-color: #88619a; }
+.mbti-circle.disagree-3:hover, .mbti-circle.disagree-3.selected { background-color: #88619a; }
+.mbti-circle.disagree-2:hover, .mbti-circle.disagree-2.selected { background-color: #88619a; }
+.mbti-circle.disagree-1:hover, .mbti-circle.disagree-1.selected { background-color: #88619a; }
 
 .mbti-labels { display: flex; justify-content: space-between; font-size: 15px; font-weight: bold; padding: 0 5px; }
 .agree-text { color: #33a474; }
 .disagree-text { color: #88619a; }
 
-/* ボタン・結果 */
+/* ボタン類 */
 .btn { display: inline-block; width: 80%; padding: 15px; margin: 10px 0; font-size: 18px; font-weight: bold; border: none; border-radius: 30px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
 .btn:active { transform: scale(0.95); }
 .start-btn { background-color: #ff6b81; color: white; box-shadow: 0 4px 10px rgba(255, 107, 129, 0.4); }
 
+/* 👇次へボタンのデザイン👇 */
+.next-btn {
+    background-color: #ff6b81;
+    color: white;
+    margin-top: 25px;
+    box-shadow: 0 4px 10px rgba(255, 107, 129, 0.4);
+}
+/* まだ選択していない時のグレーの状態 */
+.next-btn:disabled {
+    background-color: #dfe4ea;
+    color: #a4b0be;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none; /* 押してもへこまない */
+}
+
+/* 結果画面 */
 .result-box { background-color: #ffeaa7; padding: 20px 10px; border-radius: 15px; margin: 20px 0; border: 3px dashed #ffb8b8; display: flex; flex-direction: column; align-items: center; }
 .result-title { font-size: 24px; font-weight: bold; color: #ff4757; margin: 0; margin-bottom: 15px; line-height: 1.4; white-space: pre-wrap; }
 .result-img { max-width: 100%; width: 220px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }

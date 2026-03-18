@@ -8,6 +8,7 @@ const questions = [
 
 let currentQuestionIndex = 0;
 let totalScore = 0;
+let currentMultiplier = null; // 選んだ回答を一時保存する変数
 
 function startQuiz() {
     document.getElementById('start-screen').classList.remove('active');
@@ -22,10 +23,47 @@ function showQuestion() {
     const q = questions[currentQuestionIndex];
     document.getElementById('question-number').innerText = `Q${currentQuestionIndex + 1} / 5`;
     document.getElementById('question-text').innerText = q.text;
+
+    // 前の質問で選んだ状態をリセット
+    currentMultiplier = null;
+    document.querySelectorAll('.mbti-circle').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+
+    // 「次へ」ボタンを最初は押せないようにグレーにする
+    const nextBtn = document.getElementById('next-btn');
+    nextBtn.disabled = true;
+
+    // もし最後の質問（5問目）なら、ボタンの文字を「結果を見る」に変える
+    if (currentQuestionIndex === questions.length - 1) {
+        nextBtn.innerText = "結果を見る ✨";
+    } else {
+        nextBtn.innerText = "次へ →";
+    }
 }
 
-function answer(multiplier) {
-    totalScore += questions[currentQuestionIndex].point * multiplier;
+// 円がタップされた時の処理（色をつけて、次へボタンを有効にする）
+function selectAnswer(multiplier, element) {
+    currentMultiplier = multiplier;
+
+    // 全ての円からいったん色（selected）を外す
+    document.querySelectorAll('.mbti-circle').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    // 今タップされた円だけに色（selected）をつける
+    element.classList.add('selected');
+
+    // 「次へ」ボタンを押せるようにする（ピンクにする）
+    document.getElementById('next-btn').disabled = false;
+}
+
+// 「次へ（結果を見る）」ボタンが押された時の処理
+function nextQuestion() {
+    // 念のため、何も選んでいない時は何もしない
+    if (currentMultiplier === null) return; 
+
+    // ここで初めて点数を計算して足す
+    totalScore += questions[currentQuestionIndex].point * currentMultiplier;
     currentQuestionIndex++;
 
     if (currentQuestionIndex < questions.length) {
@@ -103,7 +141,7 @@ BBQ、ミスド、マック大食い、花火`;
 しゃぶしゃぶ、タコパ、ギョーザ`;
     } else {
         resultText = "適性度1％\n【大坂なおみ】";
-        imageSrc = "osaka.jpeg";
+        imageSrc = "osaka.png";
         resultDesc = `圧倒的なテニスへの情熱！ウィンブルドンを目指すあなたの熱気に、アルプラの部員たちは震え上がっています。残念ながら、うちのサークルの部員は誰一人として、あなたのその強烈なサーブを受け止めることができません。体育会系テニス部への入部を強くお勧めします！でも、息抜きに寿司が食べたくなったら遊びに来てくださいね。
 
 【あなたのラッキー新歓】

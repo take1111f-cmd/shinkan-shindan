@@ -3,53 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>アルプラ適性診断🎾✨</title>
+    <title>アルプラ適性診断</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div id="start-screen" class="screen active">
-            <h1>アルプラ適性診断🎾✨</h1>
-            <p>あなたとサークルの相性は…？<br>5つの質問に直感で答えてね！</p>
-            <button class="btn start-btn" onclick="startQuiz()">診断スタート 💖</button>
+            <h1>アルプラ適性診断 🎾✨</h1>
+            <p>あなたにぴったりの新歓はどれ？<br>5つの質問で診断しよう！</p>
+            <button class="btn start-btn" onclick="startQuiz()">診断スタート</button>
         </div>
 
         <div id="question-screen" class="screen">
             <p id="question-number" class="q-number">Q1 / 5</p>
             <h2 id="question-text" class="q-text">質問文がここに入ります</h2>
             
-           <div class="mbti-container">
-    <div class="mbti-circles">
-        <button class="mbti-circle agree-3" onclick="answer(1.0, event)">
-            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-        </button>
-        <button class="mbti-circle agree-2" onclick="answer(0.8, event)">
-            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-        </button>
-        <button class="mbti-circle agree-1" onclick="answer(0.6, event)">
-            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-        </button>
-        <button class="mbti-circle neutral" onclick="answer(0.5, event)">
-            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-        </button>
-        <button class="mbti-circle disagree-1" onclick="answer(0.4, event)">
-            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-        </button>
-        <button class="mbti-circle disagree-2" onclick="answer(0.2, event)">
-            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-        </button>
-        <button class="mbti-circle disagree-3" onclick="answer(0.0, event)">
-            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-        </button>
-    </div>
-    <div class="mbti-labels">
-        <span class="mbti-label agree-text">そう思う</span>
-        <span class="mbti-label disagree-text">そう思わない</span>
-    </div>
-</div>
-
-            <button id="next-btn" class="btn next-btn" onclick="nextQuestion()" disabled>次へ →</button>
-
+            <div class="mbti-container">
+                <div class="mbti-circles">
+                    <button class="mbti-circle agree-3" onclick="answer(1.0, event)">
+                        <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                    </button>
+                    <button class="mbti-circle agree-2" onclick="answer(0.8, event)">
+                        <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                    </button>
+                    <button class="mbti-circle agree-1" onclick="answer(0.6, event)">
+                        <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                    </button>
+                    <button class="mbti-circle neutral" onclick="answer(0.5, event)">
+                        <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                    </button>
+                    <button class="mbti-circle disagree-1" onclick="answer(0.4, event)">
+                        <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                    </button>
+                    <button class="mbti-circle disagree-2" onclick="answer(0.2, event)">
+                        <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                    </button>
+                    <button class="mbti-circle disagree-3" onclick="answer(0.0, event)">
+                        <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                    </button>
+                </div>
+                <div class="mbti-labels">
+                    <span class="mbti-label agree-text">そう思う</span>
+                    <span class="mbti-label disagree-text">そう思わない</span>
+                </div>
+            </div>
         </div>
 
         <div id="result-screen" class="screen">
@@ -64,13 +61,12 @@
             <p class="share-text">結果をスクショしてストーリーに載せよう📸</p>
             
             <div class="cta-area">
-                <p>👇新歓の詳細・参加予約はインスタから👇</p>
-                <a href="https://www.instagram.com/alphapluss_2026/" target="_blank" class="btn insta-btn">
-                    Instagramを見る 🌸
-                </a>
+                <p>アルプラの新歓情報はこちら！</p>
+                <a href="https://www.instagram.com/ここにアカウントID" target="_blank" class="btn insta-btn">Instagramを見る</a>
             </div>
         </div>
     </div>
+    
     <script src="script.js"></script>
 </body>
 </html>

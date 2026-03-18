@@ -1,5 +1,3 @@
-// script.js の全文上書き用コード
-
 // 質問データとポイント
 const questions = [
     { text: "大学生活、新しい友達をたくさん作りたい？", point: 1 },
@@ -22,59 +20,49 @@ function startQuiz() {
 }
 
 function showQuestion() {
-    // 質問を表示
     const q = questions[currentQuestionIndex];
     document.getElementById('question-number').innerText = `Q${currentQuestionIndex + 1} / 5`;
     document.getElementById('question-text').innerText = q.text;
 
-    // ★追加：次の質問が表示される際、すべてのボタンの選択状態をリセット★
+    // 次の質問が表示される際、すべてのボタンの選択状態をリセット
     const allButtons = document.querySelectorAll('.mbti-circle');
     allButtons.forEach(button => button.classList.remove('selected'));
 }
 
-// ★修正：onclick関数から'event'を受け取るように変更★
 function answer(multiplier, event) {
-    // スコア計算
+    // スコア計算（ボタンの倍率を掛ける）
     totalScore += questions[currentQuestionIndex].point * multiplier;
 
-    // ★追加：選択状態のクラス付け替え★
-    // クリックされたボタン要素を取得
+    // クリックされたボタンに色を塗ってチェックマークを表示
     const clickedButton = event.currentTarget;
-    
-    // 同じ質問内のすべてのボタンから'selected'クラスを削除
     const allButtons = document.querySelectorAll('.mbti-circle');
     allButtons.forEach(button => button.classList.remove('selected'));
-    
-    // クリックされたボタンに'selected'クラスを追加
     clickedButton.classList.add('selected');
 
-    // 次の質問への遷移
     currentQuestionIndex++;
 
+    // チェックマークを見せるため、0.3秒（300ミリ秒）だけ待ってから次へ進む
     if (currentQuestionIndex < questions.length) {
-        // 次の質問へ
-        document.getElementById('question-screen').classList.remove('active');
         setTimeout(() => {
-            document.getElementById('question-screen').classList.add('active');
-            showQuestion();
-        }, 300); // ★修正：チェックマークが見えるように、遅延を少し増やす(50ms -> 300ms)
+            document.getElementById('question-screen').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('question-screen').classList.add('active');
+                showQuestion();
+            }, 50);
+        }, 300);
     } else {
-        // 全問終了したら結果画面へ
-        document.getElementById('question-screen').classList.remove('active');
         setTimeout(() => {
-            document.getElementById('result-screen').classList.add('active');
             showResult();
-        }, 300); // ★修正：最後のチェックマークが見えるように遅延を追加
+        }, 300);
     }
 }
 
 function showResult() {
-    // 結果テキストを四捨五入
-    let finalScore = Math.round(totalScore);
-
-    // （以下、結果表示ロジックは変更なし）
     document.getElementById('question-screen').classList.remove('active');
     document.getElementById('result-screen').classList.add('active');
+
+    // 小数点を四捨五入して整数にする
+    let finalScore = Math.round(totalScore);
 
     let resultText = "";
     let imageSrc = "";
@@ -102,7 +90,7 @@ BBQ、ミスド、マック大食い、花火`;
         imageSrc = "rikaisha.png";
         resultDesc = `アルプラの良さに入学前から気づいてくれているアルプラ専属パートナーのあなた。無駄に汗を流すより、クーラーの効いた部屋で遊んだり、美味しいものを食べる方が有意義だと知っている賢者です。あなたのそのフラットで合理的な価値観、うちのサークルにドンピシャです。今すぐ新歓に来てみてください！
 
-【あなたのラッキー新歓}
+【あなたのラッキー新歓】
 サイゼリヤ、ペッパーランチ、BBQ、ミスド`;
     } else if (finalScore >= 6) {
         resultText = "適性度7777%\n【助手席のプロ】";
@@ -137,7 +125,7 @@ BBQ、ミスド、マック大食い、花火`;
         imageSrc = "osaka.png";
         resultDesc = `圧倒的なテニスへの情熱！ウィンブルドンを目指すあなたの熱気に、アルプラの部員たちは震え上がっています。残念ながら、うちのサークルの部員は誰一人として、あなたのその強烈なサーブを受け止めることができません。体育会系テニス部への入部を強くお勧めします！でも、息抜きに寿司が食べたくなったら遊びに来てくださいね。
 
-【あなたのラッキー新歓}
+【あなたのラッキー新歓】
 筋トレ、プロテイン大食い、寿司`;
     }
 

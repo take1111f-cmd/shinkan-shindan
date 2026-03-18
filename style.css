@@ -162,3 +162,66 @@ h2 {
     white-space: pre-wrap; /* JavaScriptの改行をそのまま表示する */
 }
 }
+/* MBTI風の7段階ボタンスタイル */
+.mbti-container {
+    margin-top: 30px;
+    width: 100%;
+}
+.mbti-circles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 5px;
+}
+.mbti-circle {
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+    /* タップ時の青い枠線を消す */
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+.mbti-circle:active {
+    transform: scale(0.8);
+}
+
+/* 緑系（そう思う） */
+.mbti-circle.agree-3 { width: 45px; height: 45px; border: 3px solid #33a474; }
+.mbti-circle.agree-2 { width: 35px; height: 35px; border: 3px solid #33a474; }
+.mbti-circle.agree-1 { width: 28px; height: 28px; border: 3px solid #33a474; }
+.mbti-circle.agree-3:hover, .mbti-circle.agree-3:active { background-color: #33a474; }
+.mbti-circle.agree-2:hover, .mbti-circle.agree-2:active { background-color: #33a474; }
+.mbti-circle.agree-1:hover, .mbti-circle.agree-1:active { background-color: #33a474; }
+
+/* グレー（中立） */
+.mbti-circle.neutral { width: 22px; height: 22px; border: 3px solid #9aa3ab; }
+.mbti-circle.neutral:hover, .mbti-circle.neutral:active { background-color: #9aa3ab; }
+
+/* 紫系（そう思わない） */
+.mbti-circle.disagree-1 { width: 28px; height: 28px; border: 3px solid #88619a; }
+.mbti-circle.disagree-2 { width: 35px; height: 35px; border: 3px solid #88619a; }
+.mbti-circle.disagree-3 { width: 45px; height: 45px; border: 3px solid #88619a; }
+.mbti-circle.disagree-3:hover, .mbti-circle.disagree-3:active { background-color: #88619a; }
+.mbti-circle.disagree-2:hover, .mbti-circle.disagree-2:active { background-color: #88619a; }
+.mbti-circle.disagree-1:hover, .mbti-circle.disagree-1:active { background-color: #88619a; }
+
+/* テキストラベル */
+.mbti-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+}
+.agree-text { color: #33a474; }
+.disagree-text { color: #88619a; }
+
+/* スマホ用の微調整 */
+@media (max-width: 380px) {
+    .mbti-circle.agree-3, .mbti-circle.disagree-3 { width: 40px; height: 40px; }
+    .mbti-circle.agree-2, .mbti-circle.disagree-2 { width: 32px; height: 32px; }
+    .mbti-circle.agree-1, .mbti-circle.disagree-1 { width: 26px; height: 26px; }
+    .mbti-circle.neutral { width: 20px; height: 20px; }
+}

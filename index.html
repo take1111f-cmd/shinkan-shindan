@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div id="start-screen" class="screen active">
-            <h1>アルプラ適性診断🎾✨</h1>
+            <h1>アルプラ適正診断🎾✨</h1>
             <p>あなたとサークルの相性は…？<br>5つの質問に直感で答えてね！</p>
             <button class="btn start-btn" onclick="startQuiz()">診断スタート 💖</button>
         </div>
@@ -17,9 +17,21 @@
         <div id="question-screen" class="screen">
             <p id="question-number" class="q-number">Q1 / 5</p>
             <h2 id="question-text" class="q-text">質問文がここに入ります</h2>
-            <div class="button-group">
-                <button class="btn yes-btn" onclick="answer(true)">Yes 🙆‍♀️</button>
-                <button class="btn no-btn" onclick="answer(false)">No 🙅‍♀️</button>
+            
+            <div class="mbti-container">
+                <div class="mbti-circles">
+                    <button class="mbti-circle agree-3" onclick="answer(1.0)"></button>
+                    <button class="mbti-circle agree-2" onclick="answer(0.8)"></button>
+                    <button class="mbti-circle agree-1" onclick="answer(0.6)"></button>
+                    <button class="mbti-circle neutral" onclick="answer(0.5)"></button>
+                    <button class="mbti-circle disagree-1" onclick="answer(0.4)"></button>
+                    <button class="mbti-circle disagree-2" onclick="answer(0.2)"></button>
+                    <button class="mbti-circle disagree-3" onclick="answer(0.0)"></button>
+                </div>
+                <div class="mbti-labels">
+                    <span class="mbti-label agree-text">そう思う</span>
+                    <span class="mbti-label disagree-text">そう思わない</span>
+                </div>
             </div>
         </div>
 
@@ -32,7 +44,7 @@
                 <div class="desc-box">
                     <p id="result-desc" class="result-desc">解説文がここに入ります</p>
                 </div>
-                </div>
+            </div>
             <p class="share-text">結果をスクショしてストーリーに載せよう📸</p>
             
             <div class="cta-area">

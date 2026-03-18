@@ -1,3 +1,6 @@
+// script.js の全文上書き用コード
+
+// 質問データとポイント
 const questions = [
     { text: "大学生活、新しい友達をたくさん作りたい？", point: 1 },
     { text: "休みの日は一人で過ごすより友達と遊びに行きたい", point: 1 },
@@ -8,7 +11,6 @@ const questions = [
 
 let currentQuestionIndex = 0;
 let totalScore = 0;
-let currentMultiplier = null; // 選んだ回答を一時保存する変数
 
 function startQuiz() {
     document.getElementById('start-screen').classList.remove('active');
@@ -20,64 +22,57 @@ function startQuiz() {
 }
 
 function showQuestion() {
+    // 質問を表示
     const q = questions[currentQuestionIndex];
     document.getElementById('question-number').innerText = `Q${currentQuestionIndex + 1} / 5`;
     document.getElementById('question-text').innerText = q.text;
 
-    // 前の質問で選んだ状態をリセット
-    currentMultiplier = null;
-    document.querySelectorAll('.mbti-circle').forEach(btn => {
-        btn.classList.remove('selected');
-    });
-
-    // 「次へ」ボタンを最初は押せないようにグレーにする
-    const nextBtn = document.getElementById('next-btn');
-    nextBtn.disabled = true;
-
-    // もし最後の質問（5問目）なら、ボタンの文字を「結果を見る」に変える
-    if (currentQuestionIndex === questions.length - 1) {
-        nextBtn.innerText = "結果を見る ✨";
-    } else {
-        nextBtn.innerText = "次へ →";
-    }
+    // ★追加：次の質問が表示される際、すべてのボタンの選択状態をリセット★
+    const allButtons = document.querySelectorAll('.mbti-circle');
+    allButtons.forEach(button => button.classList.remove('selected'));
 }
 
-// 円がタップされた時の処理（色をつけて、次へボタンを有効にする）
-function selectAnswer(multiplier, element) {
-    currentMultiplier = multiplier;
+// ★修正：onclick関数から'event'を受け取るように変更★
+function answer(multiplier, event) {
+    // スコア計算
+    totalScore += questions[currentQuestionIndex].point * multiplier;
 
-    // 全ての円からいったん色（selected）を外す
-    document.querySelectorAll('.mbti-circle').forEach(btn => {
-        btn.classList.remove('selected');
-    });
-    // 今タップされた円だけに色（selected）をつける
-    element.classList.add('selected');
+    // ★追加：選択状態のクラス付け替え★
+    // クリックされたボタン要素を取得
+    const clickedButton = event.currentTarget;
+    
+    // 同じ質問内のすべてのボタンから'selected'クラスを削除
+    const allButtons = document.querySelectorAll('.mbti-circle');
+    allButtons.forEach(button => button.classList.remove('selected'));
+    
+    // クリックされたボタンに'selected'クラスを追加
+    clickedButton.classList.add('selected');
 
-    // 「次へ」ボタンを押せるようにする（ピンクにする）
-    document.getElementById('next-btn').disabled = false;
-}
-
-// 「次へ（結果を見る）」ボタンが押された時の処理
-function nextQuestion() {
-    // 念のため、何も選んでいない時は何もしない
-    if (currentMultiplier === null) return; 
-
-    // ここで初めて点数を計算して足す
-    totalScore += questions[currentQuestionIndex].point * currentMultiplier;
+    // 次の質問への遷移
     currentQuestionIndex++;
 
     if (currentQuestionIndex < questions.length) {
+        // 次の質問へ
         document.getElementById('question-screen').classList.remove('active');
         setTimeout(() => {
             document.getElementById('question-screen').classList.add('active');
             showQuestion();
-        }, 50);
+        }, 300); // ★修正：チェックマークが見えるように、遅延を少し増やす(50ms -> 300ms)
     } else {
-        showResult();
+        // 全問終了したら結果画面へ
+        document.getElementById('question-screen').classList.remove('active');
+        setTimeout(() => {
+            document.getElementById('result-screen').classList.add('active');
+            showResult();
+        }, 300); // ★修正：最後のチェックマークが見えるように遅延を追加
     }
 }
 
 function showResult() {
+    // 結果テキストを四捨五入
+    let finalScore = Math.round(totalScore);
+
+    // （以下、結果表示ロジックは変更なし）
     document.getElementById('question-screen').classList.remove('active');
     document.getElementById('result-screen').classList.add('active');
 
@@ -85,9 +80,7 @@ function showResult() {
     let imageSrc = "";
     let resultDesc = "";
 
-    // 小数点を四捨五入して整数にする
-    let finalScore = Math.round(totalScore);
-
+    // 11点満点で分岐
     if (finalScore === 11) {
         resultText = "適性度100000％\n【アルプラの奇跡】";
         imageSrc = "kiseki.png";
@@ -109,7 +102,7 @@ BBQ、ミスド、マック大食い、花火`;
         imageSrc = "rikaisha.png";
         resultDesc = `アルプラの良さに入学前から気づいてくれているアルプラ専属パートナーのあなた。無駄に汗を流すより、クーラーの効いた部屋で遊んだり、美味しいものを食べる方が有意義だと知っている賢者です。あなたのそのフラットで合理的な価値観、うちのサークルにドンピシャです。今すぐ新歓に来てみてください！
 
-【あなたのラッキー新歓】
+【あなたのラッキー新歓}
 サイゼリヤ、ペッパーランチ、BBQ、ミスド`;
     } else if (finalScore >= 6) {
         resultText = "適性度7777%\n【助手席のプロ】";
@@ -144,7 +137,7 @@ BBQ、ミスド、マック大食い、花火`;
         imageSrc = "osaka.png";
         resultDesc = `圧倒的なテニスへの情熱！ウィンブルドンを目指すあなたの熱気に、アルプラの部員たちは震え上がっています。残念ながら、うちのサークルの部員は誰一人として、あなたのその強烈なサーブを受け止めることができません。体育会系テニス部への入部を強くお勧めします！でも、息抜きに寿司が食べたくなったら遊びに来てくださいね。
 
-【あなたのラッキー新歓】
+【あなたのラッキー新歓}
 筋トレ、プロテイン大食い、寿司`;
     }
 

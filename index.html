@@ -18,23 +18,35 @@
             <p id="question-number" class="q-number">Q1 / 5</p>
             <h2 id="question-text" class="q-text">質問文がここに入ります</h2>
             
-            <div class="mbti-container">
-                <div class="mbti-circles">
-                    <button class="mbti-circle agree-3" onclick="selectAnswer(1.0, this)"></button>
-                    <button class="mbti-circle agree-2" onclick="selectAnswer(0.8, this)"></button>
-                    <button class="mbti-circle agree-1" onclick="selectAnswer(0.6, this)"></button>
-                    
-                    <button class="mbti-circle neutral" onclick="selectAnswer(0.5, this)"></button>
-                    
-                    <button class="mbti-circle disagree-1" onclick="selectAnswer(0.4, this)"></button>
-                    <button class="mbti-circle disagree-2" onclick="selectAnswer(0.2, this)"></button>
-                    <button class="mbti-circle disagree-3" onclick="selectAnswer(0.0, this)"></button>
-                </div>
-                <div class="mbti-labels">
-                    <span class="mbti-label agree-text">そう思う</span>
-                    <span class="mbti-label disagree-text">そう思わない</span>
-                </div>
-            </div>
+           <div class="mbti-container">
+    <div class="mbti-circles">
+        <button class="mbti-circle agree-3" onclick="answer(1.0, event)">
+            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+        </button>
+        <button class="mbti-circle agree-2" onclick="answer(0.8, event)">
+            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+        </button>
+        <button class="mbti-circle agree-1" onclick="answer(0.6, event)">
+            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+        </button>
+        <button class="mbti-circle neutral" onclick="answer(0.5, event)">
+            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+        </button>
+        <button class="mbti-circle disagree-1" onclick="answer(0.4, event)">
+            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+        </button>
+        <button class="mbti-circle disagree-2" onclick="answer(0.2, event)">
+            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+        </button>
+        <button class="mbti-circle disagree-3" onclick="answer(0.0, event)">
+            <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+        </button>
+    </div>
+    <div class="mbti-labels">
+        <span class="mbti-label agree-text">そう思う</span>
+        <span class="mbti-label disagree-text">そう思わない</span>
+    </div>
+</div>
 
             <button id="next-btn" class="btn next-btn" onclick="nextQuestion()" disabled>次へ →</button>
 

@@ -1,7 +1,11 @@
+/* =========================================
+   全体の共通スタイル
+   ========================================= */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    /* ポップで可愛い薄ピンクの背景 */
     background-color: #fff0f5;
     color: #333;
     display: flex;
@@ -9,15 +13,20 @@ body {
     align-items: center;
     min-height: 100vh;
 }
+
+/* 中央の白いコンテナ */
 .container {
     background-color: white;
     width: 92%;
     max-width: 420px;
     border-radius: 20px;
     padding: 30px 20px;
+    /* ピンクベースのポップな影 */
     box-shadow: 0 10px 25px rgba(255, 182, 193, 0.6);
     text-align: center;
 }
+
+/* 画面切り替え用のアニメーション */
 .screen {
     display: none;
     animation: fadeIn 0.5s ease;
@@ -25,82 +34,245 @@ body {
 .screen.active {
     display: block;
 }
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-h1 { color: #ff6b81; font-size: 26px; margin-bottom: 20px; }
-h2 { font-size: 22px; color: #ff4757; }
-.q-number { color: #ff6b81; font-weight: bold; font-size: 18px; margin-bottom: 10px; }
-.q-text { font-size: 19px; line-height: 1.6; margin-bottom: 30px; color: #2f3542; min-height: 3em; }
 
-/* MBTI UI */
-.mbti-container { margin-top: 30px; margin-bottom: 10px; width: 100%; }
+/* =========================================
+   文字のスタイル
+   ========================================= */
+h1 {
+    color: #ff6b81;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+h2 {
+    font-size: 22px;
+    color: #ff4757;
+}
+.q-number {
+    color: #ff6b81;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.q-text {
+    font-size: 19px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    color: #2f3542;
+    min-height: 3em;
+}
+
+/* =========================================
+   ★MBTI診断風UIの再現コード（チェックマーク付き）★
+   ========================================= */
+
+/* コンテナ全体の設定 */
+.mbti-container {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* 7つの円を横一列に、綺麗に配置するためのFlexbox */
 .mbti-circles {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 15px; padding: 0 10px;
+    display: flex;
+    justify-content: space-between; /* 均等間隔 */
+    align-items: center;            /* 上下中央揃え */
+    margin-bottom: 15px;
+    padding: 0 10px;                /* 両端に少し余白 */
 }
-.mbti-circle {
-    border-radius: 50%; background-color: transparent; cursor: pointer;
-    transition: all 0.2s ease; padding: 0; margin: 0; outline: none;
-    -webkit-tap-highlight-color: transparent;
-}
-.mbti-circle:active { transform: scale(0.85); }
 
+/* 共通の円形ボタンスタイル */
+.mbti-circle {
+    border-radius: 50%;             /* 完全に円形にする */
+    background-color: transparent;  /* 初期は白抜き */
+    cursor: pointer;
+    transition: all 0.2s ease;      /* アニメーションを滑らかに */
+    padding: 0;
+    margin: 0;
+    /* スマホでタップした時の青い枠線を消す */
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    
+    /* チェックマークを円のど真ん中に配置するための設定 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* タップ（ホバー）した時のアニメーション：少し縮小 */
+.mbti-circle:active {
+    transform: scale(0.85);
+}
+
+/* チェックアイコンの基本スタイル */
+.check-icon {
+    width: 60%;         /* 円の大きさに対して60%のサイズ */
+    height: 60%;
+    fill: #fff;         /* チェックマークの色は白 */
+    opacity: 0;         /* 初期状態では透明（見えない） */
+    transition: opacity 0.2s ease; /* ふわっと表示させる */
+}
+
+
+/* ---------------------------------
+   色とサイズの設定（枠線のみ）
+   --------------------------------- */
+
+/* --- 緑系（そう思う）：#33a474 --- */
 .mbti-circle.agree-3 { width: 45px; height: 45px; border: 3px solid #33a474; }
 .mbti-circle.agree-2 { width: 35px; height: 35px; border: 3px solid #33a474; }
 .mbti-circle.agree-1 { width: 28px; height: 28px; border: 3px solid #33a474; }
-/* ホバー時と、選択された時(.selected)に塗りつぶす */
-.mbti-circle.agree-3:hover, .mbti-circle.agree-3.selected { background-color: #33a474; }
-.mbti-circle.agree-2:hover, .mbti-circle.agree-2.selected { background-color: #33a474; }
-.mbti-circle.agree-1:hover, .mbti-circle.agree-1.selected { background-color: #33a474; }
 
+/* --- グレー（中立）：#9aa3ab --- */
 .mbti-circle.neutral { width: 22px; height: 22px; border: 3px solid #9aa3ab; }
-.mbti-circle.neutral:hover, .mbti-circle.neutral.selected { background-color: #9aa3ab; }
 
+/* --- 紫系（そう思わない）：#88619a --- */
 .mbti-circle.disagree-1 { width: 28px; height: 28px; border: 3px solid #88619a; }
 .mbti-circle.disagree-2 { width: 35px; height: 35px; border: 3px solid #88619a; }
 .mbti-circle.disagree-3 { width: 45px; height: 45px; border: 3px solid #88619a; }
-.mbti-circle.disagree-3:hover, .mbti-circle.disagree-3.selected { background-color: #88619a; }
-.mbti-circle.disagree-2:hover, .mbti-circle.disagree-2.selected { background-color: #88619a; }
-.mbti-circle.disagree-1:hover, .mbti-circle.disagree-1.selected { background-color: #88619a; }
 
-.mbti-labels { display: flex; justify-content: space-between; font-size: 15px; font-weight: bold; padding: 0 5px; }
+
+/* ---------------------------------
+   選択された（selected）状態のスタイル
+   --------------------------------- */
+
+/* 選択されたボタンの中のチェックマークを表示する */
+.mbti-circle.selected .check-icon {
+    opacity: 1; 
+}
+
+/* 選択されたら、それぞれの色で中身を塗りつぶす */
+.mbti-circle.agree-3.selected,
+.mbti-circle.agree-2.selected,
+.mbti-circle.agree-1.selected {
+    background-color: #33a474; 
+}
+
+.mbti-circle.neutral.selected {
+    background-color: #9aa3ab; 
+}
+
+.mbti-circle.disagree-3.selected,
+.mbti-circle.disagree-2.selected,
+.mbti-circle.disagree-1.selected {
+    background-color: #88619a; 
+}
+
+
+/* ---------------------------------
+   テキストラベル（そう思う・そう思わない）
+   --------------------------------- */
+.mbti-labels {
+    display: flex;
+    justify-content: space-between; /* 両端に配置 */
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 5px;
+}
 .agree-text { color: #33a474; }
 .disagree-text { color: #88619a; }
 
-/* ボタン類 */
-.btn { display: inline-block; width: 80%; padding: 15px; margin: 10px 0; font-size: 18px; font-weight: bold; border: none; border-radius: 30px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
-.btn:active { transform: scale(0.95); }
-.start-btn { background-color: #ff6b81; color: white; box-shadow: 0 4px 10px rgba(255, 107, 129, 0.4); }
 
-/* 👇次へボタンのデザイン👇 */
-.next-btn {
+/* =========================================
+   ボタンと結果画面の共通スタイル
+   ========================================= */
+.btn {
+    display: inline-block;
+    width: 80%;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* スタートボタンの色 */
+.start-btn {
     background-color: #ff6b81;
     color: white;
-    margin-top: 25px;
     box-shadow: 0 4px 10px rgba(255, 107, 129, 0.4);
 }
-/* まだ選択していない時のグレーの状態 */
-.next-btn:disabled {
-    background-color: #dfe4ea;
-    color: #a4b0be;
-    box-shadow: none;
-    cursor: not-allowed;
-    transform: none; /* 押してもへこまない */
+
+/* 結果画面のスタイル */
+.result-box {
+    background-color: #ffeaa7;
+    padding: 20px 10px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border: 3px dashed #ffb8b8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.result-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff4757;
+    margin: 0;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+.result-img {
+    max-width: 100%;
+    width: 220px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+.result-desc {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.7;
+    text-align: left;
+    white-space: pre-wrap;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    width: 90%;
 }
 
-/* 結果画面 */
-.result-box { background-color: #ffeaa7; padding: 20px 10px; border-radius: 15px; margin: 20px 0; border: 3px dashed #ffb8b8; display: flex; flex-direction: column; align-items: center; }
-.result-title { font-size: 24px; font-weight: bold; color: #ff4757; margin: 0; margin-bottom: 15px; line-height: 1.4; white-space: pre-wrap; }
-.result-img { max-width: 100%; width: 220px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
-.result-desc { font-size: 15px; color: #444; line-height: 1.7; text-align: left; white-space: pre-wrap; background-color: white; padding: 15px; border-radius: 10px; width: 90%; }
-.share-text { font-size: 14px; color: #747d8c; margin-bottom: 30px; }
+.share-text {
+    font-size: 14px;
+    color: #747d8c;
+    margin-bottom: 30px;
+}
 
-.cta-area { background-color: #f1f2f6; padding: 20px; border-radius: 15px; margin-top: 20px; }
-.cta-area p { font-size: 15px; font-weight: bold; margin-top: 0; }
-.insta-btn { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; width: 90%; box-shadow: 0 4px 10px rgba(220, 39, 67, 0.3); }
+/* インスタへの誘導エリア */
+.cta-area {
+    background-color: #f1f2f6;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+.cta-area p {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 0;
+}
+.insta-btn {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+    width: 90%;
+    box-shadow: 0 4px 10px rgba(220, 39, 67, 0.3);
+}
 
+/* =========================================
+   スマホ用の小さな微調整
+   ========================================= */
 @media (max-width: 380px) {
     .mbti-circle.agree-3, .mbti-circle.disagree-3 { width: 40px; height: 40px; }
     .mbti-circle.agree-2, .mbti-circle.disagree-2 { width: 32px; height: 32px; }

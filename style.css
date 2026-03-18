@@ -229,3 +229,22 @@ h2 { font-size: 22px; color: #ff4757; }
     .mbti-circle.neutral { width: 20px; height: 20px; }
     .mbti-labels { font-size: 14px; }
 }
+/* =========================================
+   次へ・結果を見るボタンのスタイル
+   ========================================= */
+.next-btn {
+    background-color: #2ed573; /* 爽やかなグリーン */
+    color: white;
+    box-shadow: 0 4px 10px rgba(46, 213, 115, 0.4);
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+/* まだ選択していない時のグレーアウト状態 */
+.next-btn:disabled {
+    background-color: #dfe4ea;
+    color: #a4b0be;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none; /* 押しても凹まない */
+}

@@ -13,13 +13,17 @@
             <p>あなたにぴったりの新歓はどれ？<br>5つの質問で診断しよう！</p>
             <button class="btn start-btn" onclick="startQuiz()">診断スタート</button>
         </div>
-
-        <div id="question-screen" class="screen">
+<div id="question-screen" class="screen">
             <p id="question-number" class="q-number">Q1 / 5</p>
             <h2 id="question-text" class="q-text">質問文がここに入ります</h2>
             
             <div class="mbti-container">
-                <div class="mbti-circles">
+                </div>
+
+            <button id="next-btn" class="btn next-btn" onclick="nextQuestion()" disabled>次へ ➡</button>
+            
+        </div>
+                        <div class="mbti-circles">
                     <button class="mbti-circle agree-3" onclick="answer(1.0, event)">
                         <svg class="check-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
                     </button>

@@ -9,6 +9,7 @@ const questions = [
 
 let currentQuestionIndex = 0;
 let totalScore = 0;
+let currentMultiplier = null; // ★追加：選んだボタンの倍率を一時保存する変数
 
 function startQuiz() {
     document.getElementById('start-screen').classList.remove('active');
@@ -24,14 +25,26 @@ function showQuestion() {
     document.getElementById('question-number').innerText = `Q${currentQuestionIndex + 1} / 5`;
     document.getElementById('question-text').innerText = q.text;
 
-    // 次の質問が表示される際、すべてのボタンの選択状態をリセット
+    // 次の質問が表示される際、すべての円の選択状態をリセット
     const allButtons = document.querySelectorAll('.mbti-circle');
     allButtons.forEach(button => button.classList.remove('selected'));
+
+    // ★追加：次へボタンを最初は「押せない状態」に戻す
+    const nextBtn = document.getElementById('next-btn');
+    nextBtn.disabled = true;
+
+    // ★追加：最後の質問ならボタンの文字を「結果を見る」に変える
+    if (currentQuestionIndex === questions.length - 1) {
+        nextBtn.innerText = "結果を見る 👀";
+    } else {
+        nextBtn.innerText = "次へ ➡";
+    }
 }
 
+// 円のボタンが押された時の処理
 function answer(multiplier, event) {
-    // スコア計算（ボタンの倍率を掛ける）
-    totalScore += questions[currentQuestionIndex].point * multiplier;
+    // 点数を一時保存（まだ確定しない）
+    currentMultiplier = multiplier;
 
     // クリックされたボタンに色を塗ってチェックマークを表示
     const clickedButton = event.currentTarget;
@@ -39,23 +52,37 @@ function answer(multiplier, event) {
     allButtons.forEach(button => button.classList.remove('selected'));
     clickedButton.classList.add('selected');
 
+    // ★追加：円が選ばれたので「次へ」ボタンを押せるようにする
+    document.getElementById('next-btn').disabled = false;
+}
+
+// ★追加：「次へ（または結果を見る）」ボタンが押された時の処理
+function nextQuestion() {
+    // ここで初めてスコアを確定して足す
+    totalScore += questions[currentQuestionIndex].point * currentMultiplier;
+    
     currentQuestionIndex++;
 
-    // チェックマークを見せるため、0.3秒（300ミリ秒）だけ待ってから次へ進む
     if (currentQuestionIndex < questions.length) {
+        // 次の質問へ（フワッと切り替え）
+        document.getElementById('question-screen').classList.remove('active');
         setTimeout(() => {
-            document.getElementById('question-screen').classList.remove('active');
-            setTimeout(() => {
-                document.getElementById('question-screen').classList.add('active');
-                showQuestion();
-            }, 50);
+            document.getElementById('question-screen').classList.add('active');
+            showQuestion();
         }, 300);
     } else {
+        // 全問終了したら結果画面へ
+        document.getElementById('question-screen').classList.remove('active');
         setTimeout(() => {
+            document.getElementById('result-screen').classList.add('active');
             showResult();
         }, 300);
     }
 }
+
+// =========================================
+// この下にある function showResult() { ... } はそのまま残してください！
+// =========================================
 
 function showResult() {
     document.getElementById('question-screen').classList.remove('active');

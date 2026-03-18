@@ -11,13 +11,16 @@ let currentQuestionIndex = 0;
 let totalScore = 0;
 let currentMultiplier = null;
 
+// スタートボタンを押した時
 function startQuiz() {
-    document.getElementById('start-screen').classList.remove('active');
-    document.getElementById('question-screen').classList.active = false;
+    const startScreen = document.getElementById('start-screen');
+    startScreen.classList.add('fade-out'); // スタート画面をフワッと消す
+    
     setTimeout(() => {
+        startScreen.classList.remove('active', 'fade-out');
         document.getElementById('question-screen').classList.add('active');
         showQuestion();
-    }, 50);
+    }, 300); // 消えるのを0.3秒待つ
 }
 
 function showQuestion() {
@@ -37,7 +40,7 @@ function showQuestion() {
     if (currentQuestionIndex === questions.length - 1) {
         nextBtn.innerText = "結果を見る 👀";
     } else {
-        nextBtn.innerText = "次へ ➡";
+        nextBtn.innerText = "次へ →";
     }
 }
 
@@ -58,22 +61,31 @@ function answer(multiplier, event) {
 // 次へ（または結果を見る）ボタンが押された時の処理
 function nextQuestion() {
     totalScore += questions[currentQuestionIndex].point * currentMultiplier;
-    
     currentQuestionIndex++;
 
-    if (currentQuestionIndex < questions.length) {
-        document.getElementById('question-screen').classList.remove('active');
-        setTimeout(() => {
-            document.getElementById('question-screen').classList.add('active');
-            showQuestion();
-        }, 300);
-    } else {
-        document.getElementById('question-screen').classList.remove('active');
-        setTimeout(() => {
-            document.getElementById('result-screen').classList.add('active');
-            showResult();
-        }, 300);
-    }
+    const qScreen = document.getElementById('question-screen');
+    qScreen.classList.add('fade-out'); // 質問画面をフワッと消す
+
+    // 消えるアニメーションが終わるまで0.3秒待つ
+    setTimeout(() => {
+        if (currentQuestionIndex < questions.length) {
+            // 一旦画面を隠す
+            qScreen.classList.remove('active', 'fade-out');
+            
+            // 一瞬（50ミリ秒）待ってから中身を更新してフワッと表示
+            setTimeout(() => {
+                qScreen.classList.add('active');
+                showQuestion();
+            }, 50);
+        } else {
+            // 結果画面へ行く時
+            qScreen.classList.remove('active', 'fade-out');
+            setTimeout(() => {
+                document.getElementById('result-screen').classList.add('active');
+                showResult();
+            }, 50);
+        }
+    }, 300);
 }
 
 // 結果を表示する処理

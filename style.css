@@ -23,17 +23,26 @@ body {
     text-align: center;
 }
 
+/* ★アニメーションの進化★ */
 .screen {
     display: none;
-    animation: fadeIn 0.5s ease;
+    animation: fadeIn 0.4s ease forwards;
 }
 .screen.active {
     display: block;
+}
+.screen.fade-out {
+    /* 消える時のアニメーション */
+    animation: fadeOut 0.3s ease forwards !important;
 }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
 }
 
 h1 { color: #ff6b81; font-size: 26px; margin-bottom: 20px; }
@@ -152,7 +161,6 @@ h2 { font-size: 22px; color: #ff4757; }
     box-shadow: 0 4px 10px rgba(255, 107, 129, 0.4);
 }
 
-/* 次へ・結果を見るボタン */
 .next-btn {
     background-color: #2ed573;
     color: white;
